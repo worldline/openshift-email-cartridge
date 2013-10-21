@@ -1,0 +1,44 @@
+Name: mailapi
+Cartridge-Short-Name: MAILAPI
+Architecture: noarch
+Display-Name: MAILAPI
+Description: "MAILAPI provide a simple API to send emails."
+Version: '0.1.0'
+Versions: [0.1.0]
+Cartridge-Version: 0.1.0
+Cartridge-Vendor: worldline
+License: MIT License
+Vendor: Mit
+Categories:
+  - service
+  - embedded
+  - emails
+Website: http://worldline.org/
+Publishes:
+  publish-http-url:
+    Type: "NET_TCP:httpd-proxy-info"
+  publish-gear-endpoint:
+    Type: "NET_TCP:gear-endpoint-info"
+Cart-Data:
+ - Key: OPENSHIFT_MAILAPI_LOG_DIR
+   Type: environment
+   Description: "Directory to store application log files."
+ - Key: OPENSHIFT_GEAR_DNS
+   Type: environment
+   Description: "Fully qualified domain name for the application."
+ - Key: OPENSHIFT_MAILAPI_KEY
+   Type: cart_data
+   Description: "API key"
+Provides:
+  - emails
+Scaling:
+  Min: 1
+  Max: -1
+Endpoints:
+  - Private-IP-Name:   HOST
+    Private-Port-Name: PORT
+    Private-Port:      10023
+    Public-Port-Name:  PROXY_PORT
+    Mappings:
+      - Frontend:      "/mailapi"
+        Backend:       "/mailapi"

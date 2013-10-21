@@ -1,0 +1,30 @@
+{
+  "name": "emails",
+  "version": "0.0.0",
+  "description": "An email API for openshift",
+  "homepage": "https://github.com/steffenix/emails",
+  "bugs": "https://github.com/steffenix/emails/issues",
+  "author": {
+    "name": "steffel fenix",
+    "email": "steffel.fenix@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/steffel.fenix@gmail.com/emails"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "dependencies": {
+    "express": "",
+    "swagger-jack": "",
+    "nodemailer": ""
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0"
+  }
+}

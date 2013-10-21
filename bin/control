@@ -1,0 +1,25 @@
+#!/bin/bash
+PATH=/bin/:/usr/bin:$PATH
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+function start {
+	cd $OPENSHIFT_MAILAPI_DIR/version/email/
+  nohup $OPENSHIFT_MAILAPI_DIR/node/bin/node server.js >> $OPENSHIFT_MAILAPI_LOG_DIR/emailapi.log 2>&1 &
+  echo "Start"
+  }
+function stop {
+  export NODEPID=`cat $OPENSHIFT_MAILAPI_LOG_DIR/node.pid`
+  kill -9 $NODEPID
+}
+function status {
+  echo "Not currently made"
+}
+function build {
+  echo "Nothing to build"
+}
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  restart) restart ;;
+  status) status ;;
+tidy) tidy ;;
+esac

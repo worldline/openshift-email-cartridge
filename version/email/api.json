@@ -1,0 +1,80 @@
+{
+  "models": {
+    "EmailResponse": {
+      "id": "EmailResponse", 
+      "properties": {
+        "response": {
+          "type": "Object", 
+          "description": "The response"
+        }
+      }
+    }, 
+    "EmailRequest": {
+      "id": "EmailRequest", 
+      "properties": {
+        "to": {
+          "cc": null, 
+          "paramType": "body", 
+          "required": true, 
+          "type": "string", 
+          "description": "Cc email"
+        }, 
+        "tag": {
+          "type": "string", 
+          "description": "Tag"
+        }, 
+        "from": {
+          "required": true, 
+          "type": "string", 
+          "description": "From email"
+        }, 
+        "htmlbody": {
+          "type": "string", 
+          "description": "Email html"
+        }, 
+        "subject": {
+          "type": "string", 
+          "description": "Email subject"
+        }, 
+        "textbody": {
+          "type": "string", 
+          "description": "Email text body"
+        }, 
+        "bcc": {
+          "type": "string", 
+          "description": "Bcc email"
+        }
+      }
+    }
+  }, 
+  "description": "Hal API", 
+  "resourcePath": "/", 
+  "apis": [
+    {
+      "operations": [
+        {
+          "httpMethod": "POST", 
+          "nickname": "send", 
+          "responseClass": "EmailResponse", 
+          "parameters": [
+            {
+              "dataType": "string", 
+              "paramType": "path", 
+              "required": true, 
+              "name": "apikey", 
+              "description": "The User api key"
+            }, 
+            {
+              "dataType": "EmailRequest", 
+              "paramType": "body", 
+              "name": "email", 
+              "description": "The Email"
+            }
+          ], 
+          "summary": "Send an email"
+        }
+      ], 
+      "path": "/send/{apikey}"
+    }
+  ]
+}

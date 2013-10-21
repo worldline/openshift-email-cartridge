@@ -1,0 +1,12 @@
+#!/bin/bash
+PATH=/bin/:/usr/bin:$PATH
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+wget http://nodejs.org/dist/v0.8.9/node-v0.8.9-linux-x64.tar.gz
+tar zxvf node-v0.8.9-linux-x64.tar.gz
+ln -s node-v0.8.9-linux-x64 node &
+cd $OPENSHIFT_MAILAPI_DIR/version/email/
+npm install
+key=$(generate_password)
+echo "$key" > $OPENSHIFT_MAILAPI_DIR/env/OPENSHIFT_MAILAPI_KEY
+mkdir $OPENSHIFT_MAILAPI_LOG_DIR
+client_result "The email API key is $key access /mailapi"

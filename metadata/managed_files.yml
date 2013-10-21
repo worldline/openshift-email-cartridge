@@ -1,0 +1,13 @@
+---
+snapshot_exclusions:
+locked_files:
+- bin/
+- bin/*
+- env/
+- env/*
+- metadata/
+- metadata/*
+- hooks/
+- hooks/*
+processed_templates:
+- '**/*.erb'

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Simple mail API</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Bootstrap -->
+      <link href="mailapi/css/bootstrap.min.css" rel="stylesheet" media="screen">
+   </head>
+   <body>
+      <div class="container">
+          <div class="row">
+         <div class="col-lg-6">
+            <h2>Try using Curl</h2>
+             <p>A line of code speaks more than a thousand words – the example below sends a message straight through <a href="http://curl.haxx.se/">curl</a>. Execute it in your terminal to the see results (Mac and Linux).</p>
+            <pre> curl -X POST "http://OPENSHIFT_APP_DNS/api/send/key" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{"From": "sender@example.com", "To": "receiver@example.com", "Subject": "Test", "HtmlBody": "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear user.&lt;/body&gt;&lt;/html&gt;"}'
+  </pre>
+            <h2>Message format</h2>
+            <pre>{
+    "From" : "sender@example.com",
+    "To" : "receiver@example.com",
+    "Cc" : "copied@example.com",
+    "Bcc": "blank-copied@example.com",
+    "Subject" : "Test",
+    "Tag" : "Invitation",
+    "HtmlBody" : "&lt;b&gt;Hello&lt;/b&gt;",
+    "TextBody" : "Hello",
+    "ReplyTo" : "reply@example.com",
+  }
+  </pre>
+</div>
+<div class="row">
+         <div class="col-lg-6">
+            <h2>Try using Jquery</h2>
+            <form class="form-horizontal" id="JqueryTry">
+              <div class="form-group">
+                <label for="apikey" class="col-lg-4 control-label">API key</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="apikey" name="apikey" id="apikey" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="From" class="col-lg-4 control-label">From</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="From" name="From" id="From" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="To" class="col-lg-4 control-label">To</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="To" name="To" id="To" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="Cc" class="col-lg-4 control-label">Cc</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="Cc" name="Cc" id="Cc" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="Bcc" class="col-lg-4 control-label">Bcc</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="Bcc" name="Bcc" id="Bcc" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="Subject" class="col-lg-4 control-label">Subject</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="Subject" name="Subject" id="Subject" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="Tag" class="col-lg-4 control-label">Tag</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="Tag" name="Tag" id="Tag" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+               <div class="form-group">
+                <label for="HtmlBody" class="col-lg-4 control-label">HtmlBody</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="HtmlBody" name="HtmlBody" id="HtmlBody" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="TextBody" class="col-lg-4 control-label">TextBody</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="TextBody" name="TextBody" id="TextBody" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ReplyTo" class="col-lg-4 control-label">ReplyTo</label>
+                <div class="col-lg-6">
+                  <input type="text" placeholder="ReplyTo" name="ReplyTo" id="ReplyTo" class="form-control col-lg-10"></input>
+                </div>
+              </div>
+              <div class="form-group">
+              <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-default" id="try">Try</button>
+              </div>
+            </div>
+            </form>
+            <pre id="preview"></pre>
+         </div>
+      </div>
+
+      <!-- JavaScript plugins (requires jQuery) -->
+      <script src="mailapi/js/jquery.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="mailapi/js/bootstrap.min.js"></script>
+            <script>
+            
+            $("#JqueryTry").submit(function(event){
+              event.preventDefault();
+              var JqueryTry=$("#JqueryTry").serializeArray()
+              var JqueryTryJSON='{'
+              for (var i = 0; i < JqueryTry.length; i++) {
+                JqueryTryJSON+= '"'+JqueryTry[i].name+'" : "'+ JqueryTry[i].value+'", ';
+              };
+              JqueryTryJSON= JqueryTryJSON.slice(0,JqueryTryJSON.length-2)+'}'
+             $.ajax({
+               url: "http://<%= ENV['OPENSHIFT_APP_DNS'] %>/mailapi/api/send/"+$("#apikey").val(),
+               type: "POST",
+               dataType: "json", // expected format for response
+               processData: false,
+               contentType: "application/json", // send as JSON
+               data: JqueryTryJSON,
+             
+               complete: function(data) {
+                $("#preview").text(data.responseText)
+               },
+             
+               success: function(data) {
+                 $("#preview").text(data.responseText)
+              },
+             
+               error: function(data) {
+                 $("#preview").text(data.responseText)
+               },
+             });
+             return false;
+           });
+      </script>
+   </body>
+</html>
