@@ -37,7 +37,7 @@ Scaling:
 Endpoints:
   - Private-IP-Name:   HOST
     Private-Port-Name: PORT
-    Private-Port:      10023
+    Private-Port:      15080
     Public-Port-Name:  PROXY_PORT
     Mappings:
       - Frontend:      "/mailapi"
