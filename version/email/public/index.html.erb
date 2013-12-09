@@ -4,7 +4,7 @@
       <title>Simple mail API</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- Bootstrap -->
-      <link href="mailapi/css/bootstrap.min.css" rel="stylesheet" media="screen">
+      <link href="/mailapi/css/bootstrap.min.css" rel="stylesheet" media="screen">
    </head>
    <body>
       <div class="container">
@@ -12,7 +12,7 @@
          <div class="col-lg-6">
             <h2>Try using Curl</h2>
              <p>A line of code speaks more than a thousand words – the example below sends a message straight through <a href="http://curl.haxx.se/">curl</a>. Execute it in your terminal to the see results (Mac and Linux).</p>
-            <pre> curl -X POST "http://OPENSHIFT_APP_DNS/api/send/key" \
+            <pre> curl -X POST "http://<%= ENV['OPENSHIFT_APP_DNS'] %>/api/send/key" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -d '{"From": "sender@example.com", "To": "receiver@example.com", "Subject": "Test", "HtmlBody": "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear user.&lt;/body&gt;&lt;/html&gt;"}'
@@ -106,9 +106,9 @@
       </div>
 
       <!-- JavaScript plugins (requires jQuery) -->
-      <script src="mailapi/js/jquery.js"></script>
+      <script src="/mailapi/js/jquery.js"></script>
       <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="mailapi/js/bootstrap.min.js"></script>
+      <script src="/mailapi/js/bootstrap.min.js"></script>
             <script>
             
             $("#JqueryTry").submit(function(event){
